@@ -14,7 +14,7 @@ jobs:
        run: |
          ls ${{ github.workspace }}/Files1
          ls ${{ github.workspace }}/Files2
-         mkdir /root/workdir1
-         mkdir /root/workdir2
-         cp -R ${{ github.workspace }}/Files1 /root/workdir1
-         cp -R ${{ github.workspace }}/Files2 /root/workdir2
+         mkdir ~/workdir1
+         mkdir ~/workdir2
+         cp -R ${{ github.workspace }}/Files1 ~/workdir1
+         cp -R ${{ github.workspace }}/Files2 ~/workdir2
