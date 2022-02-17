@@ -1,0 +1,16 @@
+name: Sync on commit
+on: push
+jobs:
+ test:
+   runs-on: [ ubuntu-latest ]
+   steps:
+     - name: Run
+       if: contains(github.event.head_commit.message, 'SYNC')
+       run: |
+         ls ${{ github.workspace }}/Files1
+         ls ${{ github.workspace }}/Files2
+         mkdir /root/workdir1
+         mkdir /root/workdir2
+         cp -R ${{ github.workspace }}/Files1 /root/workdir1
+         cp -R ${{ github.workspace }}/Files2 /root/workdir2
+         
