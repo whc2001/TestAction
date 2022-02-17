@@ -9,7 +9,7 @@ jobs:
    runs-on: [ ubuntu-latest ]
    steps:
      - name: Run
-       if: contains(github.event.head_commit.message, 'SYNC') ||　github.event_name == "workflow_dispatch"
+       if: contains(github.event.head_commit.message, 'SYNC') ||　github.event_name == 'workflow_dispatch'
        run: |
          ls ${{ github.workspace }}
          ls ${{ github.workspace }}/Files1
