@@ -12,8 +12,8 @@ jobs:
        uses: actions/checkout@v2
      - name: Run
        run: |
-         ls ${{ github.workspace }}/Files1
-         ls ${{ github.workspace }}/Files2
+         ls -la ${{ github.workspace }}/Files1
+         ls -la ${{ github.workspace }}/Files2
          mkdir ~/workdir1
          mkdir ~/workdir2
          cp -R ${{ github.workspace }}/Files1 ~/workdir1
