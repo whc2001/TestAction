@@ -10,8 +10,18 @@ jobs:
    steps:
      - name: Check out repository code
        uses: actions/checkout@v2
+     - name: Record file modified timestamps
+       run: |
+         cd ${{ github.workspace }}
+         touch FileDates.txt
+         git config core.quotepath off
+         git ls-tree -r --name-only HEAD | while read filename; do
+          echo -e "$(git log -1 --format="%ad" -- $filename)\t$filename" >> FileDates.txt
+         done
      - name: Run
        run: |
+         cat ${{ github.workspace }}/FileDates.txt
+         echo -e "\n"
          ls -la ${{ github.workspace }}/Files1
          ls -la ${{ github.workspace }}/Files2
          mkdir ~/workdir1
