@@ -10,13 +10,15 @@ jobs:
    steps:
      - name: Check out repository code
        uses: actions/checkout@v2
+       with:
+         fetch-depth: '0'
      - name: Record file modified timestamps
        run: |
          cd ${{ github.workspace }}
          touch FileDates.txt
          git config core.quotepath off
          git ls-tree -r --name-only HEAD | while read filename; do
-          echo -e "$(git log -1 --format="%ct" -- $filename)\t$filename" >> FileDates.txt
+          echo -e "$(git log -1 --format="%ci" -- "$filename")\t$filename" >> FileDates.txt
          done
      - name: Run
        run: |
