@@ -17,7 +17,7 @@ jobs:
          cd ${{ github.workspace }}
          git config core.quotepath off
          git ls-tree -r --name-only HEAD | while read filename; do
-           touch -t "$(git log -1 --format="%ct" -- "$filename")" "$filename"
+           touch -d "$(git log -1 --format="%ci" -- "$filename")" "$filename"
          done
      - name: Run
        run: |
