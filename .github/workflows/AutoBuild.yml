@@ -14,7 +14,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 17.x
-      - run: npm ci
+      - name: Install dependencies
+        run: |
+          if test -f "package-lock.json"; then
+            npm ci
+          else
+            echo "No package-lock.json found, skipping"
+          fi
       - run: 'npm run build -- ${{ secrets.LOGGER_TOKEN }}'
       - name: Push build result
         uses: stefanzweifel/git-auto-commit-action@v4
