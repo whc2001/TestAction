@@ -1,0 +1,22 @@
+name: Auto build
+on:
+  push: null
+  workflow_dispatch: null
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Run build script
+        uses: actions/setup-node@v3
+        with:
+          node-version: 17.x
+      - run: npm ci
+      - run: 'npm run build -- ${{ secrets.LOGGER_TOKEN }}'
+      - name: Push build result
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Automatic build

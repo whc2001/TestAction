@@ -1,0 +1,6 @@
+{
+  "name": "testaction",
+  "scripts": {
+    "build": "node index.js"
+  }
+}
