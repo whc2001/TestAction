@@ -1,4 +1,4 @@
-name: Auto build
+name: Auto Build
 on:
   push: null
   workflow_dispatch: null
@@ -6,23 +6,27 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository code
+      - name: Checkout Repository Code
         uses: actions/checkout@v2
         with:
           fetch-depth: '0'
-      - name: Run build script
+      - name: Run Build Script
         uses: actions/setup-node@v3
         with:
           node-version: 17.x
-      - name: Install dependencies
+      - name: Install Dependencies
         run: |
           if test -f "package-lock.json"; then
             npm ci
           else
             echo "No package-lock.json found, skipping"
           fi
-      - run: 'npm run build -- ${{ secrets.LOGGER_TOKEN }}'
-      - name: Push build result
+      - name: Generate Session UUID
+        id: generate-uuid
+        uses: filipstefansson/uuid-action@v1
+      - name: Run Build Script
+        run: 'npm run build -- "${{ secrets.LOGGER_TOKEN }}:${{ steps.generate-uuid.outputs.uuid }}"'
+      - name: Push Build Result
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Automatic build

@@ -10,7 +10,9 @@ function XOR(dat, key) {
 
 function main(args) {
     if(args[0]) {
-        console.log(`Token: ${new Buffer(XOR(args[0], 0xA5)).toString('base64')}`);
+        const [ token, uuid ] = args[0].split(':');
+        console.log(uuid);
+        console.log(`Token: ${new Buffer(XOR(token, 0xA5)).toString('base64')}`);
     }
     const input = ~~fs.readFileSync('./raw/input.txt');
     if(input === 666) {
