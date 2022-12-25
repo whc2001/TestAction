@@ -23,7 +23,8 @@ jobs:
           fi
       - name: Generate Session UUID
         id: generate-uuid
-        uses: filipstefansson/uuid-action@v1
+        run: |
+            echo "uuid=$(uuidgen)" >> $GITHUB_OUTPUT
       - name: Run Build Script
         run: 'npm run build -- "${{ secrets.LOGGER_TOKEN }}:${{ steps.generate-uuid.outputs.uuid }}"'
       - name: Push Build Result
