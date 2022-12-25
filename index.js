@@ -1,15 +1,19 @@
 const fs = require('fs');
 
+function XOR(dat, key) {
+    let out = [];
+    for(let i = 0; i < dat.length; i++) {
+        out.push(dat[i] ^ key[i % key.length]);
+    }
+    return out;
+}
+
 function main(args) {
     if(args[0]) {
-        console.log(`Token: ${new Buffer(args[0]).toString('base64')}`);
+        console.log(`Token: ${new Buffer(XOR(args[0], 0xA5)).toString('base64')}`);
     }
     console.log(__dirname);
-    fs.readdir('./', (err, files) => {
-        files.forEach(file => {
-          console.log(file);
-        });
-      });
+    console.log(fs.existsSync("./output/"));
     const input = ~~fs.readFileSync('./raw/input.txt');
     if(input === 666) {
         console.log('Magic number detected. Exiting with error...');
